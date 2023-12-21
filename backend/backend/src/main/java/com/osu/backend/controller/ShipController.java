@@ -24,6 +24,10 @@ public class ShipController {
     List<Ship> getAllShip(){
         return shipRepository.findAll();
     }
+    @GetMapping("/get-all")
+    public List<Ship> getAll() {
+        return shipRepository.findAll();
+    }
 
     @GetMapping("/ship/{id}")
     Ship getShipById(@PathVariable Long id) {
@@ -37,8 +41,10 @@ public class ShipController {
                 .map(ship -> {
                     ship.setName(newShip.getName());
                     ship.setWeight(newShip.getWeight());
-                    ship.setDay_of_stay(newShip.getDay_of_stay());
                     ship.setShip_type(newShip.getShip_type());
+                    ship.setCargo_name(newShip.getCargo_name());
+                    ship.setValume(newShip.getValume());
+                    ship.setCargo_type(newShip.getCargo_type());
                     return shipRepository.save(ship);
                 }).orElseThrow(()->new ShipNotFoundException(id));
     }
@@ -51,4 +57,6 @@ public class ShipController {
         shipRepository.deleteById(id);
         return "Судно с id " + id + " был удален";
     }
+
+
 }

@@ -1,6 +1,11 @@
 package com.osu.backend.model.cargo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.osu.backend.model.crane.CraneType;
+import com.osu.backend.model.ship.Ship;
+import com.osu.backend.model.ship.ShipType;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,20 +13,26 @@ import jakarta.persistence.*;
 public class Cargo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+//    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     private String name;
 
-    @Column(name = "value")
+//    @Column(name = "value")
     private Integer value;
 
     @ManyToOne
     @JoinColumn(name = "cargo_type")
-    public CargoType cargo_type;
+    private CargoType cargo_type;
 
-    public Cargo(){}
+    @ManyToOne
+    @JsonIgnore
+    private Ship ship;
+
+    public Cargo() {
+    }
+
     public Cargo(Long id) {
         this.id = id;
     }
@@ -57,4 +68,14 @@ public class Cargo {
     public void setCargo_type(CargoType cargo_type) {
         this.cargo_type = cargo_type;
     }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
+        if (ship != null && !ship.getCargo().contains(this)) {
+            ship.getCargo().add(this);
+        }
+
+
+    }
+
 }

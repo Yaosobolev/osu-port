@@ -1,9 +1,12 @@
 package com.osu.backend.model.crane;
 
 import com.osu.backend.model.cargo.Cargo;
+import com.osu.backend.model.request.Request;
+import com.osu.backend.model.ship.Ship;
 import jakarta.persistence.*;
 
 import javax.swing.*;
+import java.util.List;
 
 
 @Entity
@@ -24,6 +27,17 @@ public class Crane {
     @ManyToOne
     @JoinColumn(name = "crane_type")
     public CraneType crane_type;
+
+//    @ManyToOne
+//    @JoinColumn(name = "request")
+//    public Request request;
+
+//  2222
+//@OneToMany(mappedBy = "crane")
+//private List<Ship> ships;
+
+    @OneToMany(mappedBy = "crane", cascade = CascadeType.ALL)
+    private List<Request> request;
 
     public Crane (){}
     public Crane(Long id) {
@@ -60,6 +74,14 @@ public class Crane {
 
     public void setCrane_type(CraneType crane_type) {
         this.crane_type = crane_type;
+    }
+
+    public List<Request> getRequest() {
+        return request;
+    }
+
+    public void setRequest(List<Request> request) {
+        this.request = request;
     }
 }
 

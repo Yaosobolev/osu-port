@@ -1,5 +1,6 @@
 package com.osu.backend.model.ship;
 
+import com.osu.backend.model.cargo.CargoType;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,8 +15,11 @@ public class ShipType {
     private String name;
 
 
+
     public ShipType() {
     }
+
+
 
     public ShipType(Long id) {
             this.id = id;

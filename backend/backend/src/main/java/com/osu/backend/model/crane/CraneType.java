@@ -20,6 +20,7 @@ public class CraneType {
     public CraneType() {
     }
     public CraneType(Long id) {
+
         this.id = id;
     }
 
@@ -46,5 +47,6 @@ public class CraneType {
     public void setSpeed(Integer speed) {
         this.speed = speed;
     }
+
 
 }

@@ -36,8 +36,11 @@ public class RequestController {
         return requestRepository.findById(id)
                 .map(request -> {
                     request.setArrival_time(newRequest.getArrival_time());
-                    request.setShip_id(newRequest.getShip_id());
-                    request.setCargo_id(newRequest.getCargo_id());
+                    request.setDay_of_stay(newRequest.getDay_of_stay());
+                    request.setShip(newRequest.getShip());
+                    request.setCrane(newRequest.getCrane());
+                    request.setStatus(newRequest.getStatus());
+
                     return requestRepository.save(request);
                 }).orElseThrow(()->new RequestNotFoundException(id));
     }
