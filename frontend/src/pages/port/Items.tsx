@@ -9,6 +9,7 @@ interface ItemsProps {
     arrival_time: string;
     day_of_stay: string;
     new_arrival_time: string;
+    day_later: number;
     serving: string;
     ship: {
       id: number;
@@ -55,16 +56,15 @@ const IItems: React.FC<ItemsProps> = ({ request }) => {
       <TableCell className="font-medium">{request.id}</TableCell>
       <TableCell>{time}</TableCell>
       <TableCell>{new_arrival_time}</TableCell>
+      <TableCell>{request.day_later}</TableCell>
       <TableCell>{request.day_of_stay}</TableCell>
       <TableCell>{serving}</TableCell>
-      <TableCell className="text-right">
-        {request.ship?.name || "N/A"}
-      </TableCell>
+      <TableCell className="text-left">{request.ship?.name || "N/A"}</TableCell>
       <TableCell className="text-right">
         {request.crane?.name || "N/A"}
       </TableCell>
       <TableCell className="text-right">
-        {request.ship?.cargo_type.name || "N/A"}
+        {request.ship?.cargo_name || "N/A"}
       </TableCell>
       <TableCell className="text-right">
         {request.ship?.valume || "Разгружено"}

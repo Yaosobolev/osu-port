@@ -64,6 +64,7 @@ const Schedule: React.FC = () => {
               <TableHead className="text-right">Название судна</TableHead>
               <TableHead className="text-right">Название крана</TableHead>
               <TableHead className="text-right">Тип груза</TableHead>
+              <TableHead className="text-right">Название груза</TableHead>
               <TableHead className="text-right">Объем груза</TableHead>
               <TableHead className="text-right">Статус</TableHead>
             </TableRow>

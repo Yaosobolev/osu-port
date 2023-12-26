@@ -1,5 +1,6 @@
 package com.osu.backend.service;
 
+import com.osu.backend.model.crane.Crane;
 import com.osu.backend.model.request.Request;
 import com.osu.backend.model.schedule.Schedule;
 import com.osu.backend.model.ship.Ship;
@@ -10,7 +11,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +28,7 @@ public class PortService {
     private final ShipRepository shipRepository;
 
     private List<Request> requests ;
+    private List<Crane> cranes;
 
     public List<Request> showPort() {
         List<Request> requests = requestRepository.findAll();
@@ -45,6 +49,8 @@ public class PortService {
                     Integer volume = request.getShip().getValume() ;
                     Integer newVolume = volume - request.getCrane().getCrane_type().getSpeed() * step;
                     request.getShip().setValume(newVolume);
+                    Long duration = ChronoUnit.DAYS.between(request.getArrival_time(), request.getNew_arrival_time());
+                    request.setDay_later(duration);
                     requestRepository.save(request);
                 }
 
@@ -54,6 +60,7 @@ public class PortService {
                     request.getShip().setValume(0);
                     request.setStatus("Разгружен");
                     arrival = request.getServing();
+
                     requestRepository.save(request);
 
                 }
@@ -86,6 +93,16 @@ public class PortService {
                 }
             }
         }
+
+//      for (Request request : requests){
+//          for (Crane crane : cranes){
+//              if(request.getStatus().equals("Работает") && request.getCrane().getName() == crane.getName()){
+//                    request.setDay_later(0L);
+//                    requestRepository.save(request);
+//                    break;
+//              }
+//          }
+//      }
 
     }
 }

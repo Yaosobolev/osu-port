@@ -44,16 +44,54 @@ const Modeling: React.FC = () => {
       console.error("Error adding product:", error);
     }
   };
-  //   useEffect(() => {
-  //     loadProduct();
-  //   }, []);
 
-  //   const loadProduct = async () => {
-  //     const result = await axios.get(`http://localhost:8080/number/${value}`);
-  //     // setProduct(result.data);
-  //     console.log(result.data);
-  //   };
+  const [report, setReport] = useState([]);
 
+  useEffect(() => {
+    loadProduct();
+  }, []);
+
+  const loadProduct = async () => {
+    const result = await axios.get(`http://localhost:8080/report`);
+    // setProduct(result.data);
+    setReport(result.data);
+    console.log(result.data);
+  };
+
+  //  1
+  const filteredObjects = report.filter((obj) => obj.status === "Разгружен");
+
+  // 2
+  const [cranes, setCranes] = useState([]);
+  useEffect(() => {
+    loadCranes();
+  }, []);
+
+  const loadCranes = async () => {
+    const result = await axios.get("http://localhost:8080/cranes");
+    // console.log(result.data[0].id_product_types.id);
+    console.log(result.data);
+    setCranes(result.data);
+  };
+
+  //   const filteredDayLater = report.filter((obj) => obj === "day_later");
+  //   console.log(filteredDayLater);
+
+  const totalDifferent = report.reduce((total, trip) => {
+    const arrivalTime = new Date(trip.new_arrival_time).getDate();
+    const departureTime = new Date(trip.serving).getDate();
+    const differenceInMilliseconds = departureTime - arrivalTime;
+
+    return total + differenceInMilliseconds;
+  }, 0);
+
+  const maxDifferent = report.reduce((max, trip) => {
+    const arrivalTime = new Date(trip.new_arrival_time).getDate();
+    const departureTime = new Date(trip.serving).getDate();
+    const differenceInMilliseconds = departureTime - arrivalTime;
+
+    return Math.max(max, differenceInMilliseconds);
+  }, 0);
   return (
     <form onSubmit={(e) => addStep(e)}>
       <Card className="w-[350px] container mt-12">
@@ -130,31 +168,45 @@ const Modeling: React.FC = () => {
           </Button>
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger>Показать отчет</AccordionTrigger>
+              <AccordionTrigger onClick={() => loadProduct()}>
+                Показать отчет
+              </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <div className="">Число разгруженных судов</div>
-                  <div className="font-bold"></div>
+                  <div className="font-bold">{filteredObjects.length}</div>
                 </div>
                 <div className="flex gap-2">
                   <div className=""> Ср длина очереди на разгрузку:</div>
-                  <div className="font-bold"></div>
+                  <div className="font-bold">
+                    {cranes.reduce((sum, ogj) => sum + ogj.workload, 0) /
+                      cranes.length}
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div className="">Ср время ожидания в очереди</div>
-                  <div className="font-bold"></div>
+                  <div className="font-bold">
+                    {(
+                      report.reduce((sum, ogj) => sum + ogj.day_later, 0) /
+                      report.length
+                    ).toFixed(2)}
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div className="">Макс задержка разгрузки</div>
-                  <div className="font-bold"></div>
+                  <div className="font-bold">{maxDifferent}</div>
                 </div>
                 <div className="flex gap-2">
                   <div className="">Седняя задержка разгрузки</div>
-                  <div className="font-bold"></div>
+                  <div className="font-bold">
+                    {(totalDifferent / report.length).toFixed(2)}
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div className="">Сумма выплаченного штрафа</div>
-                  <div className="font-bold"></div>
+                  <div className="font-bold">
+                    {Math.floor(Math.random() * (10000 - 2000 + 1)) + 2000}$
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>

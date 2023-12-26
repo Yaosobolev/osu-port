@@ -67,6 +67,9 @@ const IItems: React.FC<ItemsProps> = ({ request }) => {
         {request.ship?.cargo_type.name || "N/A"}
       </TableCell>
       <TableCell className="text-right">
+        {request.ship?.cargo_name || "N/A"}
+      </TableCell>
+      <TableCell className="text-right">
         {request.ship?.valume || "Разгружено"}
       </TableCell>
       <TableCell className="text-right">{request?.status || "N/A"}</TableCell>

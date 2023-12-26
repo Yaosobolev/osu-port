@@ -37,6 +37,9 @@ public class Request {
     @Column(name = "day_of_stay")
     private Integer day_of_stay;
 
+    @Column(name = "day_later")
+    private Long day_later;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ship")
     public Ship ship;
@@ -59,7 +62,7 @@ public class Request {
 
 
 
-    public Request(Long id, LocalDateTime arrival_time, LocalDateTime new_arrival_time, LocalDateTime serving, Integer day_of_stay, Ship ship, Crane crane, String status, Schedule schedule) {
+    public Request(Long id, LocalDateTime arrival_time, LocalDateTime new_arrival_time, LocalDateTime serving, Integer day_of_stay, Ship ship, Crane crane, String status, Schedule schedule, Long day_later) {
         this.id = id;
         this.arrival_time = arrival_time;
         this.new_arrival_time = new_arrival_time;
@@ -69,8 +72,16 @@ public class Request {
         this.status = status;
         this.schedule = schedule;
         this.serving = serving;
+        this.day_later = day_later;
     }
 
+    public Long getDay_later() {
+        return day_later;
+    }
+
+    public void setDay_later(Long day_later) {
+        this.day_later = day_later;
+    }
 
     public LocalDateTime getNew_arrival_time() {
         return new_arrival_time;

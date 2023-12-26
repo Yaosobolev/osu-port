@@ -2,6 +2,7 @@ package com.osu.backend.service;
 
 import com.osu.backend.dto.RequestDto;
 import com.osu.backend.model.cargo.CargoType;
+import com.osu.backend.model.crane.Crane;
 import com.osu.backend.model.port.Port;
 import com.osu.backend.model.request.Request;
 import com.osu.backend.model.ship.Ship;
@@ -41,12 +42,15 @@ public class ModelingService {
             "Ваниль", "Лазурит", "Лимоны", "Индиго", "Золото",
             "Железо", "Масло", "Силикон", "Янтарь", "Гранаты"};
 
+    ///////////////////////////////////////////////////////////////////
     public void startModeling(int step){
         requestRepository.deleteAllAndResetIds();
         requestRepository.resetAutoIncrement();
 
         generationShips();
         generationRequests();
+
+
 
         for (int i = 0; i < 30; i++) {
             portService.work(step);
@@ -58,13 +62,31 @@ public class ModelingService {
                 e.printStackTrace();
             }
         }
+    }
 
 
+ /////////////////////////////////////////////////////////////////////
+public List<Request> getReport(){
+        List<Request> request = requestRepository.findAll();
+        return request;
+}
 
+public List<Crane> getCranes(){
+        List<Crane> cranes = craneRepository.findAll();
 
+        return cranes;
 
     }
 
+
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////
     public void generationRequests(){
         craneRepository.clearCraneStatus();
         craneRepository.clearCraneWorkload();

@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -86,6 +87,7 @@ public class RequestService {
                 request.setShip(ship);
                 cranes.get(i).setWorkload(0);
                 ship.setStatus("Работает");
+                request.setDay_later(0L);
 
                 request.setDay_of_stay(request.getShip().getValume() / request.getCrane().getCrane_type().getSpeed() ); // Планируемое время
                 new_arrival = arrival.plusDays(randomDaysToAddArrival);
@@ -164,6 +166,7 @@ public List<Request> workPort(){
     for (Request request : requests){
         if(request.getCrane().getStatus().equals("1") && request.getShip().getStatus().equals("Работает")) {
             request.setStatus("Работает");
+            request.setDay_later(0L);
             requestRepository.save(request);
         }
         else {
@@ -186,12 +189,13 @@ public List<Request> workPort(){
                 if(request.getShip().getId().equals(ship.getId())){
                     request.getCrane().setStatus("1");
                     request.getShip().setStatus("Работает");
+
                     new_arrival = arrival.plusDays(randomDaysToAdd);
 
                     LocalDateTime serving = new_arrival.plusDays(request.getDay_of_stay());
                     request.setServing(serving);
 
-
+//                    request.setDay_later(0L);
                     request.setNew_arrival_time(new_arrival);
                     requestRepository.save(request);
                 }
