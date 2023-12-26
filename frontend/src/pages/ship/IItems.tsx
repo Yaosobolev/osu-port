@@ -7,6 +7,7 @@ interface IItemsProps {
   ship: {
     id: number;
     name: string;
+    pLanned_stay_days: number;
     ship_type: {
       id: number;
       name: string;

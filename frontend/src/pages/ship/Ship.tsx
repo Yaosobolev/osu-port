@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -17,9 +17,6 @@ import IItems from "./IItems";
 const Ship: React.FC = () => {
   const [ships, setShips] = useState([]);
 
-  // const { id } = useParams();
-
-  //   const {id} = useParams()
   useEffect(() => {
     loadProducts();
   }, []);
@@ -62,14 +59,6 @@ const Ship: React.FC = () => {
           {ships.map((ship, index) => {
             return <IItems ship={ship} key={index} deleteShip={deleteShip} />;
           })}
-          {/* <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            <TableCell className="text-right">$250.00</TableCell> */}
-          {/* </TableRow> */}
         </TableBody>
       </Table>
       {/* </div> */}

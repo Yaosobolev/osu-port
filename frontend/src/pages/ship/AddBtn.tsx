@@ -10,17 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, ChangeEvent, FormEvent } from "react";
-
+import { AlertDestructive } from "@/components/ui/AlertDestructive";
 interface Ship {
   name: string;
   weight: number;
@@ -28,6 +21,7 @@ interface Ship {
   cargo_name: string;
   valume: number;
   cargo_type: string;
+  planned_stay_days: number;
 }
 
 const AddBtn: React.FC = () => {
@@ -40,14 +34,16 @@ const AddBtn: React.FC = () => {
     cargo_name: "",
     valume: 0,
     cargo_type: "1",
+    planned_stay_days: 0,
   });
 
-  const { name, weight, ship_type, cargo_name, valume, cargo_type } = ship;
+  const { name, weight, ship_type, cargo_name, valume } = ship;
 
   const onInputShipChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShip({
       ...ship,
       [e.target.name]: e.target.value,
+      planned_stay_days: valume / 2,
     });
     // console.log(ship);
   };
@@ -58,10 +54,6 @@ const AddBtn: React.FC = () => {
       ship_type: e.target.value,
       cargo_type: e.target.value,
     });
-    // setShip({
-    //   ...ship,
-    //   cargo_type: e.target.value,
-    // });
   };
 
   const addShip = async (e: FormEvent) => {
@@ -72,6 +64,9 @@ const AddBtn: React.FC = () => {
       navigate("/");
       // Handle success or additional logic here if needed
     } catch (error) {
+      if (valume > weight) {
+        alert("Вес груза не может превышать грузоподъемность судна");
+      }
       // Handle error
       console.error("Error adding product:", error);
     }
@@ -177,8 +172,9 @@ const AddBtn: React.FC = () => {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Грузоподъемность</Label>
+              <Label htmlFor="name">Объем груза</Label>
               <Input
+                type="number"
                 id="name"
                 name="valume"
                 placeholder="Напишите объем"

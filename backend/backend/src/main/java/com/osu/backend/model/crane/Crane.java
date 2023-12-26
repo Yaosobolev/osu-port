@@ -1,5 +1,6 @@
 package com.osu.backend.model.crane;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.osu.backend.model.cargo.Cargo;
 import com.osu.backend.model.request.Request;
 import com.osu.backend.model.ship.Ship;
@@ -28,20 +29,34 @@ public class Crane {
     @JoinColumn(name = "crane_type")
     public CraneType crane_type;
 
-//    @ManyToOne
-//    @JoinColumn(name = "request")
-//    public Request request;
-
-//  2222
-//@OneToMany(mappedBy = "crane")
-//private List<Ship> ships;
-
     @OneToMany(mappedBy = "crane", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Request> request;
+
+    @Column(name = "workload")
+    private Integer workload;
+
 
     public Crane (){}
     public Crane(Long id) {
         this.id = id;
+    }
+
+    public Crane(Long id, String name, String status, CraneType crane_type, List<Request> request, Integer workload) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.crane_type = crane_type;
+        this.request = request;
+        this.workload = workload;
+    }
+
+    public int getWorkload() {
+        return workload;
+    }
+
+    public void setWorkload(Integer workload) {
+        this.workload = workload;
     }
 
     public Long getId() {
@@ -82,6 +97,13 @@ public class Crane {
 
     public void setRequest(List<Request> request) {
         this.request = request;
+    }
+
+    public void incrementWorkload(){
+        this.workload++;
+    }
+    public void dencrementWorkload(){
+        this.workload--;
     }
 }
 

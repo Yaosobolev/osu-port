@@ -3,6 +3,7 @@ package com.osu.backend.controller;
 import com.osu.backend.exception.ShipNotFoundException;
 import com.osu.backend.model.ship.Ship;
 import com.osu.backend.repository.ShipRepository;
+import com.osu.backend.service.ShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,23 @@ public class ShipController {
     @Autowired
     private ShipRepository shipRepository;
 
+    @Autowired
+    private ShipService shipService;
+
 
     @PostMapping("/ship")
     Ship newShip(@RequestBody Ship newShip){
-        return shipRepository.save(newShip);
+        if(newShip.getWeight() >= newShip.getValume()){
+
+
+            newShip.setStatus("0");
+            return shipRepository.save(newShip);
+        }
+        else {
+
+            throw new IllegalArgumentException("Invalid weight and volume");
+        }
+
     }
 
     @GetMapping("/ships")

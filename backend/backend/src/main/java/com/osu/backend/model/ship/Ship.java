@@ -8,6 +8,7 @@ import com.osu.backend.model.crane.Crane;
 import com.osu.backend.model.request.Request;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,9 @@ public class Ship {
     @Column(name = "valume")
     private Integer valume;
 
+    @Column(name = "planned_stay_days")
+    private Integer planned_stay_days;
+
     @ManyToOne
     @JoinColumn(name = "cargo_type")
     private CargoType cargo_type;
@@ -40,12 +44,11 @@ public class Ship {
     @JoinColumn(name = "ship_type")
     private ShipType ship_type;
 
-//    @OneToMany(mappedBy = "ship", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Cargo> cargo;
 
+    @Column(name = "status")
+    private String status ;
 
-
-    @OneToMany(mappedBy = "ship", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ship", cascade = CascadeType.REFRESH, orphanRemoval = true)
     @JsonIgnoreProperties("ship")
     private List<Cargo> cargo = new ArrayList<>(); // Initialize the list
 
@@ -54,6 +57,34 @@ public class Ship {
     public Ship(Long id) {
         this.id = id;
     }
+
+    public Ship(String name, Integer weight, ShipType ship_type, String cargo_name, CargoType cargo_type,Integer valume , String status) {
+        this.name = name;
+        this.weight = weight;
+        this.ship_type = ship_type;
+        this.cargo_name = cargo_name;
+        this.cargo_type = cargo_type;
+        this.valume = valume;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public Integer getPlanned_stay_days() {
+        return planned_stay_days;
+    }
+
+    public void setPlanned_stay_days(Integer planned_stay_days) {
+        this.planned_stay_days = planned_stay_days;
+    }
+    //    public void setPlanned_stay_days(Integer planned_stay_days) {
+//        this.planned_stay_days = planned_stay_days;
+//    }pLanned_stay_days
 
     public Long getId() {
         return id;
