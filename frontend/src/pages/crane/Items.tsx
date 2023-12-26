@@ -1,7 +1,6 @@
 import React from "react";
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Link } from "react-router-dom";
 
 interface ItemsProps {
   crane: {

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Link } from "react-router-dom";
 
 interface ItemsProps {
   request: {
@@ -36,7 +35,7 @@ interface ItemsProps {
       };
     };
     status: string;
-  }[]; // Replace YourShipType with the actual type of your ship object
+  }[];
 }
 
 const IItems: React.FC<ItemsProps> = ({ request }) => {

@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { AlertDestructive } from "@/components/ui/AlertDestructive";
 interface Ship {
   name: string;
   weight: number;
@@ -62,12 +61,10 @@ const AddBtn: React.FC = () => {
     try {
       await axios.post("http://localhost:8080/ship", ship);
       navigate("/");
-      // Handle success or additional logic here if needed
     } catch (error) {
       if (valume > weight) {
         alert("Вес груза не может превышать грузоподъемность судна");
       }
-      // Handle error
       console.error("Error adding product:", error);
     }
   };

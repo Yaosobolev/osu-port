@@ -13,7 +13,7 @@ interface IItemsProps {
       name: string;
     };
     weight: number;
-  }[]; // Replace YourShipType with the actual type of your ship object
+  }[];
 }
 
 const IItems: React.FC<IItemsProps> = ({ ship, deleteShip }) => {

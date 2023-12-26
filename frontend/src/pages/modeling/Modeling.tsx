@@ -71,13 +71,9 @@ const Modeling: React.FC = () => {
 
   const loadCranes = async () => {
     const result = await axios.get("http://localhost:8080/cranes");
-    // console.log(result.data[0].id_product_types.id);
     console.log(result.data);
     setCranes(result.data);
   };
-
-  //   const filteredDayLater = report.filter((obj) => obj === "day_later");
-  //   console.log(filteredDayLater);
 
   const totalDifferent = report.reduce((total, trip) => {
     const arrivalTime = new Date(trip.new_arrival_time).getDate();

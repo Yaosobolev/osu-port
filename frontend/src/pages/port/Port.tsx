@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -30,10 +29,7 @@ const Port: React.FC = () => {
   const workPort = async () => {
     try {
       await axios.post("http://localhost:8080/work");
-      //   navigate("/request");
-      // Handle success or additional logic here if needed
     } catch (error) {
-      // Handle error
       console.error("Error adding product:", error);
     }
   };
@@ -43,35 +39,11 @@ const Port: React.FC = () => {
   const [active, setActive] = useState<boolean>(true);
 
   const handleActive = () => {
-    setActive(!active); // Инвертируем значение состояния
+    setActive(!active);
   };
 
   const selectedSort = active ? sortRequest : requests;
   const selectedSortText = active ? "Сорт по id" : "Сорт по кранам";
-
-  //   const [counter, setCounter] = useState(0);
-  //   const [isRefreshing, setIsRefreshing] = useState(false);
-
-  //   const handleRefresh = () => {
-  //     window.location.reload();
-  //     console.log("hello");
-  //   };
-
-  //   useEffect(() => {
-  //     const intervalId = setInterval(() => {
-  //       setCounter((prevCounter) => prevCounter + 1);
-  //     }, 1000);
-
-  //     return () => {
-  //       clearInterval(intervalId);
-  //     };
-  //   }, []);
-
-  //   useEffect(() => {
-  //     if (counter >= 2) {
-  //       window.location.reload();
-  //     }
-  //   }, [counter]);
 
   const [counter, setCounter] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(true);

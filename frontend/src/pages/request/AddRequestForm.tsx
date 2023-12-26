@@ -12,13 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
@@ -51,9 +44,7 @@ const AddRequestForm: React.FC = () => {
     try {
       await axios.post("http://localhost:8080/request", request);
       navigate("/request");
-      // Handle success or additional logic here if needed
     } catch (error) {
-      // Handle error
       console.error("Error adding product:", error);
     }
   };

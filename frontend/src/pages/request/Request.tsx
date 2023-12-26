@@ -23,7 +23,6 @@ const Request: React.FC = () => {
 
   const loadRequests = async () => {
     const result = await axios.get("http://localhost:8080/requests");
-    // console.log(result.data[0].id_product_types.id);
     console.log(result.data);
     setRequests(result.data);
   };
@@ -34,7 +33,6 @@ const Request: React.FC = () => {
   };
   return (
     <div className="container">
-      {/* <div className="container mx-auto flex flex-col justify-center items-center text-center h-full"> */}
       <h1 className="text-5xl font-bold text-center mb-12 mt-12">Заявка </h1>
       <Link
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -55,7 +53,6 @@ const Request: React.FC = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {/* <TableRow> */}
           {requests.map((request, index) => {
             return (
               <Items
@@ -65,17 +62,8 @@ const Request: React.FC = () => {
               />
             );
           })}
-          {/* <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            <TableCell className="text-right">$250.00</TableCell> */}
-          {/* </TableRow> */}
         </TableBody>
       </Table>
-      {/* </div> */}
     </div>
   );
 };

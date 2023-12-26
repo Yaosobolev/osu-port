@@ -65,9 +65,7 @@ const EditBtn: React.FC = () => {
     try {
       await axios.put(`http://localhost:8080/ship/${id}`, ship);
       navigate("/");
-      // Handle success or additional logic here if needed
     } catch (error) {
-      // Handle error
       console.error("Error adding product:", error);
     }
   };

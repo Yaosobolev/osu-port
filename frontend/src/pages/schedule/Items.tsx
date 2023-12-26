@@ -35,7 +35,7 @@ interface ItemsProps {
       };
     };
     status: string;
-  }[]; // Replace YourShipType with the actual type of your ship object
+  }[];
 }
 
 const IItems: React.FC<ItemsProps> = ({ request }) => {
