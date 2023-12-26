@@ -16,7 +16,7 @@ public class ModelingController {
         this.modelingService = modelingService;
     }
 
-    @PostMapping("/modeling/{step}")
+    @PostMapping ("/modeling/{step}")
     void modeling(@PathVariable int step) {
         modelingService.startModeling(step);
     }

@@ -69,11 +69,15 @@ public class RequestService {
 
         LocalDateTime arrival = requestDto.getArrival();
         LocalDateTime new_arrival = requestDto.getNewArrival();
-        int[] daysToAddOptions = {0, 1, 2, 3};
-        Random random = new Random();
-        int randomIndex = random.nextInt(daysToAddOptions.length);
-        int randomDaysToAdd = daysToAddOptions[randomIndex];
-//        new_arrival = arrival.plusDays(randomDaysToAdd);
+        int[] daysArrivalToAddOptions = {-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        Random random1 = new Random();
+        int randomIndexForArrival = random1.nextInt(daysArrivalToAddOptions.length -1 );
+        int randomDaysToAddArrival = daysArrivalToAddOptions[randomIndexForArrival];
+
+        Integer[] daysCraneToAddOptions = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        Random random2 = new Random();
+        Integer randomIndexForCrane = random2.nextInt(daysCraneToAddOptions.length -1 );
+        Integer randomDaysToAddCrane = daysCraneToAddOptions[randomIndexForCrane];
 
         for (int i =  0 ; i < cranes.size()  ; i++) {
             if ("0".equals(cranes.get(i).getStatus()) && cranes.get(i).getCrane_type().getId() == ship.getShip_type().getId()) {
@@ -83,12 +87,11 @@ public class RequestService {
                 cranes.get(i).setWorkload(0);
                 ship.setStatus("Работает");
 
-                request.setDay_of_stay(request.getShip().getValume()/request.getCrane().getCrane_type().getSpeed());
-                new_arrival = arrival.plusDays(randomDaysToAdd);
-                LocalDateTime serving = new_arrival.plusDays(request.getDay_of_stay());
+                request.setDay_of_stay(request.getShip().getValume() / request.getCrane().getCrane_type().getSpeed() ); // Планируемое время
+                new_arrival = arrival.plusDays(randomDaysToAddArrival);
+                LocalDateTime serving = new_arrival.plusDays(request.getDay_of_stay() +  randomDaysToAddCrane);
                 request.setServing(serving);
 
-//                request.setTemp(serving);
 
                 break;
             }

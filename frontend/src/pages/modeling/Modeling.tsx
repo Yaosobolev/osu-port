@@ -44,15 +44,15 @@ const Modeling: React.FC = () => {
       console.error("Error adding product:", error);
     }
   };
-  // useEffect(() => {
-  //   loadProduct();
-  // }, []);
+  //   useEffect(() => {
+  //     loadProduct();
+  //   }, []);
 
-  // const loadProduct = async () => {
-  //   const result = await axios.get(`http://localhost:8080/number/${value}`);
-  //   setProduct(result.data);
-  //   console.log(result.data);
-  // };
+  //   const loadProduct = async () => {
+  //     const result = await axios.get(`http://localhost:8080/number/${value}`);
+  //     // setProduct(result.data);
+  //     console.log(result.data);
+  //   };
 
   return (
     <form onSubmit={(e) => addStep(e)}>

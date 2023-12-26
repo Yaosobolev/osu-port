@@ -32,7 +32,7 @@ public class PortService {
         return requests;
     }
 
-    public void work(){
+    public void work(int step){
         List<Request> requests = requestRepository.findAll();
         List<Ship> ships = shipRepository.findAll();
         requests.sort((r1, r2) -> Long.compare(r1.getCrane().getId(), r2.getCrane().getId()));
@@ -43,7 +43,7 @@ public class PortService {
             if(request.getStatus().equals("Работает")){
                 if(request.getShip().getValume() > 0){
                     Integer volume = request.getShip().getValume() ;
-                    Integer newVolume = volume - request.getCrane().getCrane_type().getSpeed();
+                    Integer newVolume = volume - request.getCrane().getCrane_type().getSpeed() * step;
                     request.getShip().setValume(newVolume);
                     requestRepository.save(request);
                 }

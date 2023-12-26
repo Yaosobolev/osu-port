@@ -2,21 +2,20 @@ package com.osu.backend.service;
 
 import com.osu.backend.dto.RequestDto;
 import com.osu.backend.model.cargo.CargoType;
+import com.osu.backend.model.port.Port;
 import com.osu.backend.model.request.Request;
 import com.osu.backend.model.ship.Ship;
 import com.osu.backend.model.ship.ShipType;
 import com.osu.backend.repository.CraneRepository;
 import com.osu.backend.repository.RequestRepository;
 import com.osu.backend.repository.ShipRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +28,8 @@ public class ModelingService {
     private final RequestService requestService;
 
     private CraneRepository craneRepository;
+
+    private PortService portService;
 
     private static final String[] SHIP_NAME= {"Yacht-", "Submarine-", "Sailboat-", "Hovercraft-", "Ferry-",
             "Vessel-", "Icebreaker-", "Catamaran-", "Speedboat-", "Dinghy-",
@@ -46,6 +47,21 @@ public class ModelingService {
 
         generationShips();
         generationRequests();
+
+        for (int i = 0; i < 30; i++) {
+            portService.work(step);
+            try {
+
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            }
+        }
+
+
+
+
 
     }
 

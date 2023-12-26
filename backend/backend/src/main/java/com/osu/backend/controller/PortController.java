@@ -16,7 +16,7 @@ public class PortController {
 
     @PostMapping("/work")
     void newRequest(){
-        portService.work();
+        portService.work(1);
     }
 
     @GetMapping("/result")
