@@ -50,8 +50,6 @@ public class ModelingService {
         generationShips();
         generationRequests();
 
-
-
         for (int i = 0; i < 30; i++) {
             portService.work(step);
             try {
@@ -63,7 +61,6 @@ public class ModelingService {
             }
         }
     }
-
 
  /////////////////////////////////////////////////////////////////////
 public List<Request> getReport(){
@@ -77,14 +74,6 @@ public List<Crane> getCranes(){
         return cranes;
 
     }
-
-
-
-
-
-
-
-
 
     ///////////////////////////////////////////////////////////////////
     public void generationRequests(){

@@ -11,12 +11,14 @@ import {
 
 import axios from "axios";
 import { useState, ChangeEvent, useEffect, FormEvent } from "react";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 interface Step {
   value: number;
 }
@@ -58,7 +60,7 @@ const Modeling: React.FC = () => {
     console.log(result.data);
   };
 
-  //  1
+  1;
   const filteredObjects = report.filter((obj) => obj.status === "Разгружен");
 
   // 2
@@ -179,8 +181,10 @@ const Modeling: React.FC = () => {
                 <div className="flex gap-2">
                   <div className=""> Ср длина очереди на разгрузку:</div>
                   <div className="font-bold">
-                    {cranes.reduce((sum, ogj) => sum + ogj.workload, 0) /
-                      cranes.length}
+                    {(
+                      cranes.reduce((sum, ogj) => sum + ogj.workload, 0) /
+                      cranes.length
+                    ).toFixed(2)}
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -199,13 +203,13 @@ const Modeling: React.FC = () => {
                 <div className="flex gap-2">
                   <div className="">Седняя задержка разгрузки</div>
                   <div className="font-bold">
-                    {(totalDifferent / report.length).toFixed(2)}
+                    {(Math.abs(totalDifferent) / report.length).toFixed(2)}
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <div className="">Сумма выплаченного штрафа</div>
                   <div className="font-bold">
-                    {Math.floor(Math.random() * (10000 - 2000 + 1)) + 2000}$
+                    {Math.abs(totalDifferent * 126)}$
                   </div>
                 </div>
               </AccordionContent>
